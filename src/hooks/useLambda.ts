@@ -22,9 +22,11 @@ import { useCallback } from 'react';
 export function useLambda({
   lambdaName,
   region,
+  roleArn
 }: {
   lambdaName: string;
   region: string;
+  roleArn?: string;
 }) {
   const lambdaApi = useApi(awsLambdaApiRef);
   const errorApi = useApi(errorApiRef);
@@ -36,6 +38,7 @@ export function useLambda({
         backendUrl: configApi.getString('backend.baseUrl'),
         awsRegion: region,
         functionName: lambdaName,
+        roleArn: roleArn ? roleArn : undefined,
         token: identityApi?.getIdToken ? await identityApi.getIdToken() : undefined
       }),
     [region, lambdaName], // eslint-disable-line react-hooks/exhaustive-deps

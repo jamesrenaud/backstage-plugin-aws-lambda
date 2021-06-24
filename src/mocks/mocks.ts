@@ -29,6 +29,38 @@ export const entityMock = {
   ],
 };
 
+export const entityWithRoleArnMock = {
+  metadata: {
+    namespace: 'default',
+    annotations: {
+      'backstage.io/managed-by-location':
+        'url:https://github.com/mcalus3/sample-service/blob/master/backstage9.yaml',
+      'aws.com/lambda-function-name': 'openfraksl-dev-graphql',
+      'aws.com/lambda-region': 'us-east-1',
+      'aws.com/lambda-role-arn': 'arn:aws:iam::112233445566:role/Roadie'
+    },
+    name: 'sample-service',
+    description:
+      'A service for testing Backstage functionality. For example, we can trigger errors\non the sample-service, these are sent to Sentry, then we can view them in the \nBackstage plugin for Sentry.\n',
+    uid: '8378becc-fadc-4bfe-b922-72eb0858f448',
+    etag: 'MDZjZTliOTgtNWVkMC00MzVjLTk2OGQtMmRlNjliOGE3NTIx',
+    generation: 1,
+  },
+  apiVersion: 'backstage.io/v1alpha1',
+  kind: 'Component',
+  spec: {
+    type: 'service',
+    owner: 'david@roadie.io',
+    lifecycle: 'experimental',
+  },
+  relations: [
+    {
+      target: { kind: 'group', namespace: 'default', name: 'david@roadie.io' },
+      type: 'ownedBy',
+    },
+  ],
+};
+
 //  http://localhost:7000/api/aws/credentials
 export const credentialsResponseMock = {
   AccessKeyId: 'test-key-id',

@@ -55,4 +55,14 @@ metadata:
     aws.com/lambda-region: us-east-1
 ```
 
+Optionally, you can specify a `aws.com/lambda-role-arn` in your annotation to retrieve information about a function that exists in another AWS account:
+
+```yaml
+metadata:
+  annotations:
+    aws.com/lambda-function-name: HelloWorld
+    aws.com/lambda-region: us-east-1
+    aws.com/lambda-role-arn: arn:aws:iam:123456789012:role/Example
+```
+
 Make sure you have AWS auth backend plugin installed in your backstage backend (installation guide in the readme https://github.com/RoadieHQ/backstage-plugin-aws-auth)

@@ -30,6 +30,7 @@ import { setupServer } from 'msw/node';
 import {
   credentialsResponseMock,
   entityMock,
+  entityWithRoleArnMock,
   lambdaResponseMock,
 } from '../../mocks/mocks';
 import { awsLambdaApiRef, AWSLambdaOverviewWidget } from '../..';
@@ -69,6 +70,27 @@ describe('AWSLambdaCard', () => {
     const rendered = render(
       <ApiProvider apis={apis}>
         <EntityProvider entity={entityMock}>
+          <AWSLambdaOverviewWidget />
+        </EntityProvider>
+      </ApiProvider>
+    );
+    expect(
+      await rendered.findByText(lambdaResponseMock.Configuration.FunctionName)
+    ).toBeInTheDocument();
+    expect(
+      await rendered.findByText(lambdaResponseMock.Configuration.State)
+    ).toBeInTheDocument();
+    expect(
+      await rendered.findByText(
+        lambdaResponseMock.Configuration.LastUpdateStatus
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('should display an ovreview card when using roleArn with the data from the requests', async () => {
+    const rendered = render(
+      <ApiProvider apis={apis}>
+        <EntityProvider entity={entityWithRoleArnMock}>
           <AWSLambdaOverviewWidget />
         </EntityProvider>
       </ApiProvider>

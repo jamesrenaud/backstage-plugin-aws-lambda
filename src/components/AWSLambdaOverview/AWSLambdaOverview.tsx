@@ -202,11 +202,12 @@ export const isAWSLambdaAvailable = (entity: Entity) =>
   entity?.metadata.annotations?.[AWS_LAMBDA_ANNOTATION];
 
 const AWSLambdaOverview = ({ entity }: { entity: Entity }) => {
-  const { lambdaName, lambdaRegion } = useServiceEntityAnnotations(entity);
+  const { lambdaName, lambdaRegion, roleArn } = useServiceEntityAnnotations(entity);
 
   const [lambdaData] = useLambda({
     lambdaName,
     region: lambdaRegion,
+    roleArn: roleArn,
   });
   if (lambdaData.loading) {
     return (

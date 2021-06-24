@@ -19,14 +19,17 @@ import { AwsLambdaApi } from './AWSLambdaApi';
 import { LambdaData } from '../types';
 
 async function generateCredentials(backendUrl: string, options: {
-  token: string | undefined
+  token: string | undefined,
+  roleArn?: string | undefined,
 }) {
+  const reqBody = options.roleArn ? JSON.stringify({ RoleArn: options.roleArn }) : undefined;
   const respData = await fetch(`${backendUrl}/api/aws/credentials`, {
     headers: {
       // Disable eqeqeq rule for next line to allow it to pick up both undefind and null
       // eslint-disable-next-line eqeqeq 
-      ...(options == null ? void 0 : options.token) && {Authorization: `Bearer ${options == null ? void 0 : options.token}`}
-    }
+      ...(options == null ? void 0 : options.token) && { Authorization: `Bearer ${options == null ? void 0 : options.token}` }
+    },
+    body: reqBody
   });
   try {
     const resp = await respData.json();
